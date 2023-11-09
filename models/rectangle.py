@@ -2,7 +2,7 @@
 """
 Rectangle module
 """
-from base import Base
+from models.base import Base
 
 
 class Rectangle(Base):
@@ -31,7 +31,9 @@ class Rectangle(Base):
         """
         Width setter
         """
-        if not isinstance(value, int):
+        # added a check for when value is a bool, if the check is removed
+        # the unittest for it will fail
+        if not isinstance(value, int) or isinstance(value, bool):
             raise TypeError("width must be an integer")
         if value <= 0:
             raise ValueError("width must be > 0")
@@ -68,7 +70,9 @@ class Rectangle(Base):
         """
         x setter
         """
-        if not isinstance(value, int):
+        # added a check for when value is a bool, if the check is removed
+        # the unittest for it will fail
+        if not isinstance(value, int) or isinstance(value, bool):
             raise TypeError("x must be an integer")
         if value < 0:
             raise ValueError("x must be >= 0")
@@ -136,8 +140,8 @@ class Rectangle(Base):
                     self.x = arg
                 elif count == 4:
                     self.y = arg
-                else:
-                    continue
+                # removed the break statement, incase if the passed args are greater
+                # than 5, and one of the attributes is at the end
         elif len(kwargs) > 0:
             for key, value in kwargs.items():
                 if key == "id":
@@ -150,8 +154,8 @@ class Rectangle(Base):
                     self.x = value
                 elif key == "y":
                     self.y = value
-                else:
-                    break
+                # removed the break statement, incase if the passed args are greater
+                # than 5, and one of the attributes is at the end
 
     def to_dictionary(self):
         """
@@ -169,14 +173,4 @@ class Rectangle(Base):
 
 
 if __name__ == "__main__":
-    r1 = Rectangle(10, 2, 1, 9)
-    print(r1)
-    r1_dictionary = r1.to_dictionary()
-    print(r1_dictionary)
-    print(type(r1_dictionary))
-
-    r2 = Rectangle(1, 1)
-    print(r2)
-    r2.update(**r1_dictionary)
-    print(r2)
-    print(r1 == r2)
+    pass

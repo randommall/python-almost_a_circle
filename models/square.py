@@ -1,40 +1,36 @@
 #!/usr/bin/python3
 """
-Module for square class
+Defines a square class.
 """
-from rectangle import Rectangle
+from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
     """
-    The Square class
+    Represent a square.
     """
+
     def __init__(self, size, x=0, y=0, id=None):
         """
-        Square class constructor
+        Initialize a new Square.
         """
         super().__init__(size, size, x, y, id)
 
     @property
     def size(self):
-        """
-        Get the size of the Square.
-        """
+        """Get/set the size of the Square."""
         return self.width
 
     @size.setter
     def size(self, value):
-        """
-        Set the size of the Square.
-        """
         self.width = value
         self.height = value
 
-    def updated(self, *args, **kwargs):
+    def update(self, *args, **kwargs):
         """
-        Assign arguments to attributes based on their positions.
+        Update the Square.
         """
-        if args:
+        if args and len(args) != 0:
             for count, arg in enumerate(args):
                 if count == 0:
                     self.id = arg
@@ -44,8 +40,6 @@ class Square(Rectangle):
                     self.x = arg
                 elif count == 3:
                     self.y = arg
-                else:
-                    continue
         elif len(kwargs) > 0:
             for key, value in kwargs.items():
                 if key == "id":
@@ -56,44 +50,19 @@ class Square(Rectangle):
                     self.x = value
                 elif key == "y":
                     self.y = value
-                else:
-                    break
 
     def to_dictionary(self):
-        """
-        Returns the dictionary representation of the Square.
-        """
+        """Return the dictionary representation of the Square."""
         square_dict = {
-                "id": self.id,
-                "size": self.width,
-                "x": self.x,
-                "y": self.y
+            "id": self.id,
+            "size": self.width,
+            "x": self.x,
+            "y": self.y
         }
 
         return square_dict
 
-
     def __str__(self):
-        """
-        Str representation
-        """
-        return "[Square] ({}) {}/{} - {}".format(self.id,
-                                                 self.x,
-                                                 self.y,
+        """Return the print() and str() representation of a Square."""
+        return "[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y,
                                                  self.width)
-
-
-
-if __name__ == "__main__":
-
-    s1 = Square(10, 2, 1)
-    print(s1)
-    s1_dictionary = s1.to_dictionary()
-    print(s1_dictionary)
-    print(type(s1_dictionary))
-
-    s2 = Square(1, 1)
-    print(s2)
-    s2.update(**s1_dictionary)
-    print(s2)
-    print(s1 == s2)
