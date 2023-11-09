@@ -140,8 +140,9 @@ class Rectangle(Base):
                     self.x = arg
                 elif count == 4:
                     self.y = arg
-                # removed the break statement, incase if the passed args are greater
-                # than 5, and one of the attributes is at the end
+                else:
+                    break
+                
         elif len(kwargs) > 0:
             for key, value in kwargs.items():
                 if key == "id":
